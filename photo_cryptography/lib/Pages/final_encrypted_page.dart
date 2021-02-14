@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart' as syspath;
 
 class final_encrypted_page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map data = ModalRoute.of(context).settings.arguments;
     print(data["message"]);
+    final path = "${syspath.getApplicationDocumentsDirectory()}/new_photo.png";
+    File imagefile = File(path);
     return Scaffold(
         appBar: AppBar(
           title: Text("Encrypted photo"),
@@ -21,10 +25,11 @@ class final_encrypted_page extends StatelessWidget {
               ),
             ),
             Container(
-                child: data["path"] == null
-                    ? Text("No Image Is Inserted")
-                    : Image.file(data["path"],
-                        fit: BoxFit.cover, width: double.infinity),
+                child: Image.file(
+                  imagefile,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
                 width: double.infinity,
                 height: 300,
                 padding: EdgeInsets.all(10),

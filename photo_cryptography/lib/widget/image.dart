@@ -5,27 +5,21 @@ import '../Logic/image_encryption.dart';
 
 class image extends StatefulWidget {
   @override
-  Function setpath;
-  image(setpath);
-  _imageState createState() => _imageState(setpath);
+  _imageState createState() => _imageState();
 }
 
 class _imageState extends State<image> {
   @override
-  Function setpath;
-  _imageState(setpath);
   File stored_image;
   File image_transfer;
 
   Future<void> open_camera() async {
     final picker = ImagePicker();
     final imagefile = await picker.getImage(source: ImageSource.camera);
-
+    encryption(imagefile.path);
     setState(() {
       stored_image = File(imagefile.path);
     });
-    final file = encryption(imagefile.path);
-    setpath(file);
   }
 
   Future<void> open_gallery() async {

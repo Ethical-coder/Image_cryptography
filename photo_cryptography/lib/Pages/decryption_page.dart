@@ -5,10 +5,6 @@ import '../widget/image.dart';
 class decryption_page extends StatelessWidget {
   @override
   File stored_image = null;
-  var path;
-  Function setpath(newpath) {
-    path = newpath;
-  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +21,7 @@ class decryption_page extends StatelessWidget {
               ),
               alignment: Alignment.center,
               margin: EdgeInsets.only(top: 45, bottom: 20)),
-          image(setpath),
+          image(),
         ],
       ),
     );
