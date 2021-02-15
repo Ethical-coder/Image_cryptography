@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart' as syspath;
 
-class final_encrypted_page extends StatelessWidget {
+class FinalEncryptedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map data = ModalRoute.of(context).settings.arguments;

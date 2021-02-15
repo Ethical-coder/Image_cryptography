@@ -1,13 +1,15 @@
 import "package:flutter/material.dart";
 
-class home_page extends StatelessWidget {
-  @override
-  String en_route = "/encryption_page";
-  String de_route = "/decryption_page";
-  Function route_changer(ctx, route) {
+import './decryption_page.dart';
+import './encryption_page.dart';
+
+class HomePage extends StatelessWidget {
+  
+  void routeChanger(ctx, route) {
     Navigator.of(ctx).pushNamed(route);
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +31,7 @@ class home_page extends StatelessWidget {
               radius: 10,
               splashColor: Colors.yellowAccent,
               onTap: () => {
-                route_changer(context, en_route),
+                routeChanger(context, EncryptionPage.routeName),
               },
               child: Container(
                 child: Text("Encryption"),
@@ -50,7 +52,7 @@ class home_page extends StatelessWidget {
               radius: 10,
               splashColor: Colors.yellowAccent,
               onTap: () => {
-                route_changer(context, de_route),
+                routeChanger(context, DecryptionPage.routeName),
               },
               child: Container(
                 child: Text("Decryption"),

@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
-import '../widget/image.dart';
+import '../widgets/image_to_encrypt.dart';
 import 'dart:io';
 
-class encryption_page extends StatelessWidget {
-  @override
-  encrypt_message(ctx, rt, message) {
+class EncryptionPage extends StatelessWidget {
+
+  static const routeName = "/encryption_page";
+
+  encryptMessage(ctx, rt, message) {
     Navigator.of(ctx)
         .pushNamed("/final_encrypted_page", arguments: {"message": message});
   }
 
   var message = TextEditingController();
-  String route = "/final_encrypted_page";
-  File file = null;
+  final String route = "/final_encrypted_page";
+  File file;
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +31,7 @@ class encryption_page extends StatelessWidget {
               ),
               alignment: Alignment.center,
               margin: EdgeInsets.only(top: 45, bottom: 20)),
-          image(),
+          ImageToEncrypt(),
           SizedBox(
             height: 10,
           ),
@@ -50,7 +53,7 @@ class encryption_page extends StatelessWidget {
               width: double.infinity,
               height: 50,
               child: InkWell(
-                onTap: () => encrypt_message(context, route, message.text),
+                onTap: () => encryptMessage(context, route, message.text),
                 splashColor: Colors.yellowAccent,
                 child: Text(
                   "Encrypt the message",

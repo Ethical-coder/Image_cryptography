@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-import '../widget/image.dart';
+import '../widgets/image_to_encrypt.dart';
 
-class decryption_page extends StatelessWidget {
+class DecryptionPage extends StatelessWidget {
+
+  static const routeName = "/decryption_page";
+  File storedImage;
+ 
   @override
-  File stored_image = null;
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +23,7 @@ class decryption_page extends StatelessWidget {
               ),
               alignment: Alignment.center,
               margin: EdgeInsets.only(top: 45, bottom: 20)),
-          image(),
+          ImageToEncrypt(),
         ],
       ),
     );

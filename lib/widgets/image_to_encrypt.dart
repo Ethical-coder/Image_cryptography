@@ -3,42 +3,43 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import '../Logic/image_encryption.dart';
 
-class image extends StatefulWidget {
+class ImageToEncrypt extends StatefulWidget {
   @override
-  _imageState createState() => _imageState();
+  _ImageToEncryptState createState() => _ImageToEncryptState();
 }
 
-class _imageState extends State<image> {
-  @override
-  File stored_image;
-  File image_transfer;
+class _ImageToEncryptState extends State<ImageToEncrypt> {
 
-  Future<void> open_camera() async {
+  File storedImage;
+  File imageTransfer;
+
+  Future<void> openCamera() async {
     final picker = ImagePicker();
     final imagefile = await picker.getImage(source: ImageSource.camera);
     encryption(imagefile.path);
     setState(() {
-      stored_image = File(imagefile.path);
+      storedImage = File(imagefile.path);
     });
   }
 
-  Future<void> open_gallery() async {
+  Future<void> openGallery() async {
     final picker = ImagePicker();
     final imagefile = await picker.getImage(source: ImageSource.gallery);
     setState(() {
-      stored_image = File(imagefile.path);
+      storedImage = File(imagefile.path);
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
           width: double.infinity,
-          child: stored_image == null
+          child: storedImage == null
               ? Text("Image not yet Uploaded")
               : Image.file(
-                  stored_image,
+                  storedImage,
                   fit: BoxFit.cover,
                   width: double.infinity,
                 ),
@@ -55,7 +56,7 @@ class _imageState extends State<image> {
               Expanded(
                 flex: 5,
                 child: FlatButton.icon(
-                  onPressed: open_camera,
+                  onPressed: openCamera,
                   icon: Icon(
                     Icons.camera,
                     color: Colors.blue,
@@ -69,7 +70,7 @@ class _imageState extends State<image> {
               Expanded(
                 flex: 5,
                 child: FlatButton.icon(
-                  onPressed: open_gallery,
+                  onPressed: openGallery,
                   icon: Icon(
                     Icons.image,
                     color: Colors.blue,
