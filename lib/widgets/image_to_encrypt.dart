@@ -1,49 +1,39 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import '../Logic/image_encryption.dart';
+import '../providers/image_provider.dart';
+import 'package:provider/provider.dart';
 
-class ImageToEncrypt extends StatefulWidget {
-  @override
-  _ImageToEncryptState createState() => _ImageToEncryptState();
-}
+class ImageToEncrypt extends StatelessWidget {
 
-class _ImageToEncryptState extends State<ImageToEncrypt> {
-
-  File storedImage;
-  File imageTransfer;
-
-  Future<void> openCamera() async {
+  Future<void> openCamera(BuildContext context) async {
     final picker = ImagePicker();
     final imagefile = await picker.getImage(source: ImageSource.camera);
-    encryption(imagefile.path);
-    setState(() {
-      storedImage = File(imagefile.path);
-    });
+    Provider.of<ImageProviderCustom>(context, listen: false).updateImage(imagefile.path);
   }
 
-  Future<void> openGallery() async {
+  Future<void> openGallery(BuildContext context) async {
     final picker = ImagePicker();
     final imagefile = await picker.getImage(source: ImageSource.gallery);
-    setState(() {
-      storedImage = File(imagefile.path);
-    });
+    Provider.of<ImageProviderCustom>(context, listen: false).updateImage(imagefile.path);
   }
 
   @override
   Widget build(BuildContext context) {
+    final pth = Provider.of<ImageProviderCustom>(context).imagePath();
+
     return Column(
       children: [
         Container(
           width: double.infinity,
-          child: storedImage == null
+          child:  pth == null
               ? Text("Image not yet Uploaded")
               : Image.file(
-                  storedImage,
+                  File(pth),
                   fit: BoxFit.cover,
                   width: double.infinity,
                 ),
-          height: 300,
+          height: MediaQuery.of(context).size.height*0.2,
           margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
           color: Colors.grey,
           alignment: Alignment.center,
@@ -56,34 +46,35 @@ class _ImageToEncryptState extends State<ImageToEncrypt> {
               Expanded(
                 flex: 5,
                 child: FlatButton.icon(
-                  onPressed: openCamera,
+                  onPressed: () => openCamera(context),
                   icon: Icon(
                     Icons.camera,
-                    color: Colors.blue,
+                    color: Theme.of(context).accentColor,
                   ),
                   label: Text(
                     "Camera",
-                    style: TextStyle(color: Colors.blue),
+                    style: TextStyle(color: Theme.of(context).accentColor),
                   ),
                 ),
               ),
               Expanded(
                 flex: 5,
                 child: FlatButton.icon(
-                  onPressed: openGallery,
+                  onPressed: ()=>openGallery(context),
                   icon: Icon(
                     Icons.image,
-                    color: Colors.blue,
+                    color: Theme.of(context).accentColor,
                   ),
                   label: Text(
-                    "Galery",
-                    style: TextStyle(color: Colors.blue),
+                    "Gallery",
+                    style: TextStyle(color: Theme.of(context).accentColor),
                   ),
                 ),
               )
             ],
           ),
         ),
+        Divider(),
       ],
     );
   }

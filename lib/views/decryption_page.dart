@@ -1,29 +1,33 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
-import '../widgets/image_to_encrypt.dart';
+import 'package:photo_cryptography/providers/image_provider.dart';
+
+import 'package:provider/provider.dart';
 
 class DecryptionPage extends StatelessWidget {
-
-  static const routeName = "/decryption_page";
-  File storedImage;
  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Photo Decrytpion"),
-      ),
-      body: Column(
+
+    void decryptImage(BuildContext context){
+      final message = Provider.of<ImageProviderCustom>(context, listen: false).decryptImage();
+    }
+
+    return SingleChildScrollView(child: Column(
         children: [
           Container(
-              child: Text(
-                "Enter Image to be Decrypted",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+            color: Theme.of(context).accentColor,
+            width: MediaQuery.of(context).size.width*0.55,
+              child: InkWell(
+                child: ListTile(
+                  leading: Icon(Icons.lock_open),
+                  title: Text("Decrypt Image", textAlign: TextAlign.center,style: TextStyle(
+                    fontWeight: FontWeight.bold
+                  ),),
+                  onTap: () => decryptImage(context),
+                ),
               ),
               alignment: Alignment.center,
               margin: EdgeInsets.only(top: 45, bottom: 20)),
-          ImageToEncrypt(),
         ],
       ),
     );
