@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
-
+import 'package:provider/provider.dart';
+import '../providers/image_provider.dart';
 import '../widgets/image_to_encrypt.dart';
 import './decryption_page.dart';
 import './encryption_page.dart';
-import 'package:custom_switch/custom_switch.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,10 +17,16 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int _selectedPageIndex = 0;
-  //added
-  var enc_key = TextEditingController();
-  bool status = false;
-  //end
+  final encKey = TextEditingController();
+  bool useCustomKey = false;
+
+  void changeKey(bool val) {
+    var provd = Provider.of<ImageProviderCustom>(context, listen: false);
+    if (val && encKey.text!="")
+      provd.setKey(encKey.text);
+    else
+      provd.resetKey();
+  }
 
   void _selectPage(int index) {
     setState(() {
@@ -32,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Photo Cryptography App"),
+        title: Text("Stegnographer"),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -42,39 +48,34 @@ class _HomePageState extends State<HomePage> {
               flex: 4,
               child: ImageToEncrypt(),
             ),
-            //added this----------------------------------------
             Expanded(
-              flex: 1,
-              child: Row(
-                children: [
-                  Container(
-                    width: 300,
-                    margin: EdgeInsets.only(
-                        left: 10, right: 10, top: 10, bottom: 10),
-                    child: (status == false)
-                        ? Text("Using Default Key")
-                        : TextField(
-                            controller: enc_key,
-                            maxLength: 20,
-                            maxLengthEnforced: true,
-                          ),
+                flex: 1,
+                child: ListTile(
+                  title: (useCustomKey == false)
+                      ? Text("Use custom encryption key",style: TextStyle(color: Colors.grey))
+                      : TextField(
+                          maxLines: 1,
+                          onChanged: (_){ 
+                            if(encKey.text.length>20)
+                              encKey.text = encKey.text.substring(0,20);
+                            this.changeKey(true);
+                          },
+                          controller: encKey,
+                          maxLength: 20,
+                          maxLengthEnforced: true,
+                        ),
+                  trailing:Switch(
+                    activeColor: Theme.of(context).accentColor,
+                    value: useCustomKey,
+                    onChanged: (value) {
+                      setState(() {
+                        this.changeKey(value);
+                        useCustomKey = value;
+                      });
+                    },
                   ),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: CustomSwitch(
-                      activeColor: Colors.orangeAccent,
-                      value: status,
-                      onChanged: (value) {
-                        setState(() {
-                          status = value;
-                        });
-                      },
-                    ),
-                  )
-                ],
-              ),
-            ),
-            //end),
+                )),
+            Divider(),
             Expanded(
               child: this._pages[_selectedPageIndex]['page'],
               flex: 5,

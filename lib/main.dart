@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
       create: (_) => ImageProviderCustom(),
       child: MaterialApp(
         theme: ThemeData(
-          accentColor: Colors.amberAccent,
-          primaryColor: Colors.blueGrey[700],
+          accentColor: Colors.amber[700],
+          primaryColor: Colors.deepPurple[700],
           splashColor: Colors.yellowAccent,
         ),
         routes: {

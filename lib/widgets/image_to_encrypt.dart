@@ -23,60 +23,53 @@ class ImageToEncrypt extends StatelessWidget {
   Widget build(BuildContext context) {
     final pth = Provider.of<ImageProviderCustom>(context).imagePath();
 
-    return Column(
-      children: [
-        Container(
-          width: double.infinity,
-          child: pth == null
-              ? Text("Image not yet Uploaded")
-              : Image.file(
-                  File(pth),
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                ),
-          height: MediaQuery.of(context).size.height * 0.2,
-          margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-          color: Colors.grey,
-          alignment: Alignment.center,
-          padding: EdgeInsets.all(10),
-        ),
-        Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 5,
-                child: FlatButton.icon(
-                  onPressed: () => openCamera(context),
-                  icon: Icon(
-                    Icons.camera,
-                    color: Theme.of(context).accentColor,
+    return SingleChildScrollView(
+          child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            child: pth == null
+                ? Text("Image not yet Uploaded")
+                : Image.file(
+                    File(pth),
+                    fit: BoxFit.cover,
+                    width: double.infinity,
                   ),
-                  label: Text(
-                    "Camera",
-                    style: TextStyle(color: Theme.of(context).accentColor),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 5,
-                child: FlatButton.icon(
-                  onPressed: () => openGallery(context),
-                  icon: Icon(
-                    Icons.image,
-                    color: Theme.of(context).accentColor,
-                  ),
-                  label: Text(
-                    "Gallery",
-                    style: TextStyle(color: Theme.of(context).accentColor),
-                  ),
-                ),
-              )
-            ],
+            height: pth==null? MediaQuery.of(context).size.height * 0.2:MediaQuery.of(context).size.height,
+            margin: EdgeInsets.only(left: 3, right: 3, bottom: 3),
+            color: Colors.grey[300],
+            alignment: Alignment.center,
           ),
-        ),
-        Divider(),
-      ],
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FlatButton.icon(
+                    onPressed: () => openCamera(context),
+                    icon: Icon(
+                      Icons.camera,
+                      color: Theme.of(context).accentColor,
+                    ),
+                    label: Text(
+                      "Camera",
+                      style: TextStyle(color: Theme.of(context).accentColor),
+                    ),
+                  ),
+                VerticalDivider(),
+                FlatButton.icon(
+                    onPressed: () => openGallery(context),
+                    icon: Icon(
+                      Icons.image,
+                      color: Theme.of(context).accentColor,
+                    ),
+                    label: Text(
+                      "Gallery",
+                      style: TextStyle(color: Theme.of(context).accentColor),
+                    ),
+                  ),
+              ],
+            ),
+        ],
+      ),
     );
   }
 }
