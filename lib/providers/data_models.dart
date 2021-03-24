@@ -1,12 +1,11 @@
 class EncDecTables {
   static const int enc_mask = 4294967168;
   static const int dec_mask = 127;
-  static const String default_key = "Kw7iE8\$r\\cA&\$Xw}it@v";
+  static const String default_key = "Kw7iE89r*cA&#Xw}it@v";
   static const enc_map = {
     '!': 22,
     '"': 43,
     '#': 36,
-    '\n': 72,
     '%': 119,
     '&': 86,
     "'": 64,
@@ -62,7 +61,6 @@ class EncDecTables {
     'Y': 85,
     'Z': 4,
     '[': 16,
-    '\\': 54,
     ']': 90,
     '^': 19,
     '_': 11,
@@ -105,7 +103,6 @@ class EncDecTables {
     22: '!',
     43: '"',
     36: '#',
-    72: '\n',
     119: '%',
     86: '&',
     64: "'",
@@ -161,7 +158,6 @@ class EncDecTables {
     85: 'Y',
     4: 'Z',
     16: '[',
-    54: '\\',
     90: ']',
     19: '^',
     11: '_',
