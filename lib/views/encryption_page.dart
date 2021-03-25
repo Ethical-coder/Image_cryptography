@@ -37,7 +37,7 @@ class EncryptionPage extends StatelessWidget {
             height: 50,
             child: InkWell(
               onTap: () => encryptMessage(context, messageController.text),
-              splashColor: Theme.of(context).accentColor,
+              splashColor: Theme.of(context).primaryColor,
               child: Text(
                 "Encrypt Image",
                 style: TextStyle(fontWeight: FontWeight.bold),
