@@ -1,16 +1,25 @@
-# photo_cryptography
 
-A new Flutter project.
+# Stenographer
+Android app to encrypt and decrypt message from pixels of image using symmetric key cryptography with bit masking.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Hides message in pixels of image
+- Symmetric key cryptography
+- No compression of image
+- No effect on image view
+- Option of secure default key
 
-A few resources to get you started if this is your first Flutter project:
+  
+## Tech Stack
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+**Client:** Flutter, Dart.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  
+## Authors
+
+- [@Ayush Shrivastava](https://github.com/Ethical-coder)
+- [@Akshat Sharma](https://github.com/coder-iota)
+
+  
+  

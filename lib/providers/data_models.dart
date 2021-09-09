@@ -2,7 +2,7 @@ class EncDecTables {
   static const int enc_mask = 4294967168;
   static const int dec_mask = 127;
   static const String default_key = "Kw7iE89r*cA&#Xw}it@v";
-  static const enc_map = {
+  static const Map<String, int> enc_map = {
     '!': 22,
     '"': 43,
     '#': 36,

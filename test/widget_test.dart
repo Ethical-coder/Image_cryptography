@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:Image_Stenography/main.dart';
+import 'package:stenographer/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

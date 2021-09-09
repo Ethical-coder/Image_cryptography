@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:Image_Stenography/providers/image_provider.dart';
+import 'package:stenographer/providers/image_provider.dart';
 
 import 'package:provider/provider.dart';
 

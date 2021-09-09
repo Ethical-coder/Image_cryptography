@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Map<String, Object>> _pages = [
+  final List<Map<String, dynamic>> _pages = [
     {'page': EncryptionPage(), 'title': 'Encrypt'},
     {'page': DecryptionPage(), 'title': 'Decrypt'},
   ];
@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
 
   void changeKey(bool val) {
     var provd = Provider.of<ImageProviderCustom>(context, listen: false);
-    if (val && encKey.text!="")
+    if (val && encKey.text != "")
       provd.setKey(encKey.text);
     else
       provd.resetKey();
@@ -52,19 +52,20 @@ class _HomePageState extends State<HomePage> {
                 flex: 1,
                 child: ListTile(
                   title: (useCustomKey == false)
-                      ? Text("Use custom encryption key",style: TextStyle(color: Colors.grey))
+                      ? Text("Use custom encryption key",
+                          style: TextStyle(color: Colors.grey))
                       : TextField(
                           maxLines: 1,
-                          onChanged: (_){ 
-                            if(encKey.text.length>20)
-                              encKey.text = encKey.text.substring(0,20);
+                          onChanged: (_) {
+                            if (encKey.text.length > 20)
+                              encKey.text = encKey.text.substring(0, 20);
                             this.changeKey(true);
                           },
                           controller: encKey,
                           maxLength: 20,
                           maxLengthEnforced: true,
                         ),
-                  trailing:Switch(
+                  trailing: Switch(
                     activeColor: Theme.of(context).accentColor,
                     value: useCustomKey,
                     onChanged: (value) {

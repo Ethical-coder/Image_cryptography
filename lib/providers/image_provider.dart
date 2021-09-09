@@ -7,8 +7,8 @@ import 'package:path_provider/path_provider.dart' as syspath;
 
 // This is the model class for the provider to use. Do not change it without consulting.
 class ImageObject {
-  String path;
-  imgModel.Image imageObject;
+  String? path;
+  imgModel.Image? imageObject;
 }
 
 class ImageProviderCustom with ChangeNotifier {
@@ -18,8 +18,8 @@ class ImageProviderCustom with ChangeNotifier {
   void resetKey() => this.currentKey = dataModel.EncDecTables.default_key;
   void setKey(String customKey) => this.currentKey = customKey;
 
-  String imagePath() {
-    return this.img?.path;
+  String? imagePath() {
+    return this.img.path;
   }
 
   void updateImage(String path) {
@@ -33,19 +33,19 @@ class ImageProviderCustom with ChangeNotifier {
     try {
       print("encoding image");
       this.img.imageObject =
-          imgModel.decodeImage(io.File(img.path).readAsBytesSync());
+          imgModel.decodeImage(io.File(img.path.toString()).readAsBytesSync());
       int length = message.length;
 
       this
           .img
-          .imageObject
+          .imageObject!
           .setPixel(0, 0, dataModel.EncDecTables.enc_map["SOS"]);
       var msgVal;
       var keyVal;
       var encryptedKey;
       int i = 0, j = 1, counter = 1;
       while (counter <= length) {
-        var pixel = this.img.imageObject.getPixel(i, j);
+        var pixel = this.img.imageObject!.getPixel(i, j);
 
         pixel = pixel & dataModel.EncDecTables.enc_mask;
         keyVal = dataModel.EncDecTables
@@ -54,14 +54,14 @@ class ImageProviderCustom with ChangeNotifier {
         encryptedKey = (keyVal + msgVal) % 128;
 
         var finalPixel = pixel | encryptedKey;
-        this.img.imageObject.setPixel(i, j, finalPixel);
+        this.img.imageObject!.setPixel(i, j, finalPixel);
         counter += 1;
         i = (counter / 50).toInt();
         j = counter % 50;
       }
 
       //adding end of string signal
-      var pixel = this.img.imageObject.getPixel(i, j);
+      var pixel = this.img.imageObject!.getPixel(i, j);
 
       pixel = pixel & dataModel.EncDecTables.enc_mask;
       keyVal = dataModel
@@ -70,10 +70,10 @@ class ImageProviderCustom with ChangeNotifier {
       encryptedKey = (keyVal + msgVal) % 128;
 
       var finalPixel = pixel | encryptedKey;
-      this.img.imageObject.setPixel(i, j, finalPixel);
+      this.img.imageObject!.setPixel(i, j, finalPixel);
 
       //converting image back to file
-      final io.File encImage = io.File(this.img.path);
+      final io.File encImage = io.File(this.img.path.toString());
       encImage.writeAsBytesSync(imgModel.encodePng(this.img.imageObject));
       //fetching path to store image
       '''final appdir = await syspath.getApplicationDocumentsDirectory();
@@ -94,31 +94,32 @@ class ImageProviderCustom with ChangeNotifier {
   String decryptImage() {
     print("decoding image");
     this.img.imageObject =
-        imgModel.decodeImage(io.File(img.path).readAsBytesSync());
-    var checkVal =
-        (this.img.imageObject.getPixel(0, 0)) & dataModel.EncDecTables.dec_mask;
+        imgModel.decodeImage(io.File(img.path.toString()).readAsBytesSync());
+    var checkVal = (this.img.imageObject!.getPixel(0, 0)) &
+        dataModel.EncDecTables.dec_mask;
     if (checkVal == dataModel.EncDecTables.enc_map["SOS"]) {
       try {
         int i = 0, j = 1, counter = 1;
         String message = "";
-        var curPixel = ((this.img.imageObject.getPixel(0, 1)) &
+        int curPixel = ((this.img.imageObject!.getPixel(0, 1)) &
                 dataModel.EncDecTables.dec_mask) -
-            dataModel.EncDecTables.enc_map[currentKey[0]];
+            dataModel.EncDecTables.enc_map[currentKey[0]]!.toInt();
         if (curPixel < 0) {
           curPixel += 128;
         }
 
         while (curPixel != dataModel.EncDecTables.enc_map["EOS"] &&
             counter < 2500) {
-          message = message + dataModel.EncDecTables.dec_map[curPixel];
+          message =
+              message + dataModel.EncDecTables.dec_map[curPixel].toString();
           counter += 1;
           i = (counter / 50).toInt();
           j = counter % 50;
-          var encValue = (this.img.imageObject.getPixel(i, j)) &
+          var encValue = (this.img.imageObject!.getPixel(i, j)) &
               dataModel.EncDecTables.dec_mask;
           var keyValue = dataModel.EncDecTables
               .enc_map[currentKey[(counter - 1) % currentKey.length]];
-          curPixel = encValue - keyValue;
+          curPixel = encValue - keyValue!;
           if (curPixel < 0) {
             curPixel += 128;
           }
