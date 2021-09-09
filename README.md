@@ -10,6 +10,24 @@ Android app to encrypt and decrypt message from pixels of image using symmetric 
 - No effect on image view
 - Option of secure default key
 
+## Screenshots
+<details><summary>Screeshots</summary>
+  <img src="https://github.com/Ethical-coder/Image_cryptography/blob/main/sc/Screenshot_1631183894.png" width="200" height="400"> 
+  <img src="https://github.com/Ethical-coder/Image_cryptography/blob/main/sc/Screenshot_1631184175.png" width="200" height="400"> 
+  <img src="https://github.com/Ethical-coder/Image_cryptography/blob/main/sc/Screenshot_1631184190.png" width="200" height="400"> 
+  <img src="https://github.com/Ethical-coder/Image_cryptography/blob/main/sc/Screenshot_1631184207.png" width="200" height="400"> 
+  <img src="https://github.com/Ethical-coder/Image_cryptography/blob/main/sc/Screenshot_1631184269.png" width="200" height="400"> 
+  <img src="https://github.com/Ethical-coder/Image_cryptography/blob/main/sc/Screenshot_1631184284.png" width="200" height="400"> 
+
+
+</details>
+
+## Installation
+
+To download the app Click on the link below.
+
+
+  [Link](https://github.com/Ethical-coder/Image_cryptography/blob/main/apk/app-release.apk?raw=true)
   
 ## Tech Stack
 
