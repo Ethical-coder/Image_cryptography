@@ -31,7 +31,7 @@ To download the app Click on the link below.
   
 ## Tech Stack
 
-**Client:** Flutter, Dart.
+Flutter, Dart.
 
   
 ## Authors
