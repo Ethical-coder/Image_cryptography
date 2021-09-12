@@ -22,6 +22,12 @@ Android app to encrypt and decrypt message from pixels of image using symmetric 
 
 </details>
 
+## Image before
+<img src="https://github.com/Ethical-coder/Image_cryptography/blob/main/sc/original.png">
+
+## Image After 
+<img src="https://github.com/Ethical-coder/Image_cryptography/blob/main/sc/stenographed.png" >
+
 ## Installation
 
 To download the app Click on the link below.
